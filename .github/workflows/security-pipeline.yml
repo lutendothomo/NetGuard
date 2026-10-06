@@ -7,8 +7,17 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
-      - run: pip install -r requirements.txt
+      
+      - name: Install and Upgrade Dependencies
+        run: |
+          # Upgrade core Python tools to secure versions first
+          python -m pip install --upgrade pip "setuptools>=83.0.0"
+          # Install project requirements and security tools
+          pip install -r requirements.txt
+          pip install bandit pip-audit
+
       - name: SAST (Bandit)
         run: bandit -r netguard -ll -ii
+        
       - name: SCA (pip-audit)
         run: pip-audit
