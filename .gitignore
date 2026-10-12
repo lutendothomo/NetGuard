@@ -222,3 +222,4 @@ __marimo__/
 # NetGuard
 netguard.db
 *.db-journal
+*.db
