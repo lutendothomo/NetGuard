@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from netguard.database import init_db
 from netguard.api.auth_routes import router as auth_router
 from netguard.api.audit_routes import router as audit_router
+from netguard.api.network_routes import router as network_router
 
 # Modern FastAPI Lifespan (Replaces the deprecated @app.on_event)
 @asynccontextmanager
@@ -24,6 +25,7 @@ async def apply_security_headers(request: Request, call_next):
 
 app.include_router(auth_router)
 app.include_router(audit_router)
+app.include_router(network_router)
 
 if __name__ == "__main__":
     # FIX: Use "run:app" instead of "run.py:app"

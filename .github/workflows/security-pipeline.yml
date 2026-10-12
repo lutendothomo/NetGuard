@@ -13,11 +13,13 @@ jobs:
           # Upgrade core Python tools to secure versions first
           python -m pip install --upgrade pip "setuptools>=83.0.0"
           # Install project requirements and security tools
-          pip install -r requirements.txt
-          pip install bandit pip-audit
+          pip install -r requirements-dev.txt
 
       - name: SAST (Bandit)
         run: bandit -r netguard -ll -ii
         
       - name: SCA (pip-audit)
         run: pip-audit
+
+      - name: Tests (pytest)
+        run: python -m pytest -q
