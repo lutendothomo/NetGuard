@@ -44,7 +44,10 @@ def get_current_user(
             detail="Invalid authentication token",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    if "sub" in payload and "username" not in payload:
+        payload["username"] = payload["sub"]
     return payload
+
 
 
 def require_role(allowed_roles: Iterable[str] | str):
